@@ -1,15 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Observable, of, from, Subscription } from 'rxjs';
 import { delay, concatMap, mergeMap, switchMap, exhaustMap } from 'rxjs/operators';
-
-interface IData {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  gender: string;
-  country: string;
-}
+import { data, IData } from './data.model';
 
 @Component({
   selector: 'app-root',
@@ -19,90 +11,7 @@ interface IData {
 export class AppComponent implements OnDestroy {
   title = 'Higher Order Observables';
 
-  data: IData[] = [
-    {
-      id: 1,
-      firstName: 'Michele',
-      lastName: 'Kellington',
-      email: 'mkellington0@epa.gov',
-      gender: 'female',
-      country: 'China'
-    },
-    {
-      id: 2,
-      firstName: 'Tildie',
-      lastName: 'Rushford',
-      email: 'trushford1@prweb.com',
-      gender: 'female',
-      country: 'Netherlands'
-    },
-    {
-      id: 3,
-      firstName: 'Raddie',
-      lastName: 'Kennifick',
-      email: 'rkennifick2@mysql.com',
-      gender: 'male',
-      country: 'Portugal'
-    },
-    {
-      id: 4,
-      firstName: 'Lowell',
-      lastName: 'Dan',
-      email: 'ldan3@utexas.edu',
-      gender: 'male',
-      country: 'Greece'
-    },
-    {
-      id: 5,
-      firstName: 'Rosina',
-      lastName: 'Childes',
-      email: 'rchildes4@about.me',
-      gender: 'female',
-      country: 'Sweden'
-    },
-    {
-      id: 6,
-      firstName: 'Joela',
-      lastName: 'Acom',
-      email: 'jacom5@themeforest.net',
-      gender: 'female',
-      country: 'Argentina'
-    },
-    {
-      id: 7,
-      firstName: 'Dayle',
-      lastName: 'Seel',
-      email: 'dseel6@e-recht24.de',
-      gender: 'male',
-      country: 'China'
-    },
-    {
-      id: 8,
-      firstName: 'Nessie',
-      lastName: 'Gobell',
-      email: 'ngobell7@hhs.gov',
-      gender: 'female',
-      country: 'Indonesia'
-    },
-    {
-      id: 9,
-      firstName: 'Ginelle',
-      lastName: 'Sighard',
-      email: 'gsighard8@un.org',
-      gender: 'female',
-      country: 'Philippines'
-    },
-    {
-      id: 10,
-      firstName: 'Chanda',
-      lastName: 'Gaughan',
-      email: 'cgaughan9@xrea.com',
-      gender: 'female',
-      country: 'Nigeria'
-    }
-  ];
-
-  dataIds: number[] = this.data.map(item => item.id);
+  dataIds: number[] = data.map(item => item.id);
 
   /*
   Projects each source value to an Observable which is merged in the output Observable,
@@ -160,7 +69,7 @@ export class AppComponent implements OnDestroy {
   }
 
   getDataById(id: number): Observable<string> {
-    const dataById: IData | null = this.data.find(item => item.id === id) || null;
+    const dataById: IData | null = data.find(item => item.id === id) || null;
     return dataById ? of(`${dataById.id}-${dataById.firstName}-${dataById.lastName}`).pipe(
       delay(this.random(1000, 5000))
     ) : of('');
