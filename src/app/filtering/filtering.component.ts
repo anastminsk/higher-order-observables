@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Observable, Subscription, BehaviorSubject, from, fromEvent, of } from 'rxjs';
-import { filter, skipWhile, take, distinctUntilKeyChanged, debounceTime, pluck, distinctUntilChanged, switchMap, map, takeLast, distinct } from 'rxjs/operators';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Observable, Subscription, BehaviorSubject, from, of } from 'rxjs';
+import { filter, skipWhile, take, distinctUntilKeyChanged, debounceTime, switchMap } from 'rxjs/operators';
 import { data, IData, Gender } from '../data.model';
 
 @Component({
@@ -8,7 +8,7 @@ import { data, IData, Gender } from '../data.model';
   templateUrl: './filtering.component.html',
   styleUrls: ['./filtering.component.less'],
 })
-export class FilteringComponent implements OnInit {
+export class FilteringComponent implements OnInit, OnDestroy {
   dataStream$: Observable<IData> = from(data);
   streamFromInput$ = new BehaviorSubject<string | undefined>('');
   sub: Subscription | undefined;
